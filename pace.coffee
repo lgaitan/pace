@@ -200,11 +200,12 @@ class Bar
         throw new NoTargetError
 
       @el = document.createElement 'div'
-      @el.className = "pace pace-active"
+      @el.classList.add 'pace'
+      @el.classList.add 'pace-active'
 
-      document.body.className = document.body.className.replace /pace-done/g, ''
-      if not /pace-running/.test document.body.className
-        document.body.className += ' pace-running'
+      document.body.classList.remove 'pace-done'
+      if not document.body.classList.has 'pace-running'
+        document.body.classList.add 'pace-running'
 
       @el.innerHTML = '''
       <div class="pace-progress">
@@ -222,11 +223,11 @@ class Bar
   finish: ->
     el = @getElement()
 
-    el.className = el.className.replace 'pace-active', ''
-    el.className += ' pace-inactive'
+    el.classList.remove 'pace-active'
+    el.classList.add 'pace-inactive'
 
-    document.body.className = document.body.className.replace 'pace-running', ''
-    document.body.className += ' pace-done'
+    document.body.classList.remove 'pace-running'
+    document.body.classList.add 'pace-done'
 
   update: (prog) ->
     @progress = prog
